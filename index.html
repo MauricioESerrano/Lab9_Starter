@@ -69,39 +69,144 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id = "consolelogbutton">Console Log</button>
+      <button id = "consoleErrorButton">Console Error</button>
+      <button id = "consoleCountButton">Console Count</button>
+      <button id = "consoleWarnButton">Console Warn</button>
+      <button id = "consoleAssertButton">Console Assert</button>
+      <button id = "consoleClearButton">Console Clear</button>
+      <button id = "consoleDirButton">Console Dir</button>
+      <button id = "consoleDirxmlButton">Console dirxml</button>
+      <button id = "consoleGroupStartButton">Console Group Start</button>
+      <button id = "consoleGroupEndButton">Console Group End</button>
+      <button id = "consoleTableButton">Console Table</button>
+      <button id = "startTimerButton">Start Timer</button>
+      <button id = "endTimerButton">End Timer</button>
+      <button id = "consoleTraceButton">Console Trace</button>
+      <button id = "globalErrorButton">Trigger a Global Error</button>
     </section>
   </main>
 
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
-      e.preventDefault();
-      let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try {
+        e.preventDefault();
+        let output = document.querySelector('output');
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        let operator = document.querySelector('#operator').value;
+
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+          throw new NumberError('non number');
+        }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch (error) {
+
+        console.log(error);
+
+      } finally {
+        console.log("failed lol")
+      }
+      
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let consoleLog = document.getElementById("consolelogbutton");
+    consoleLog.addEventListener('click', () => {
+      console.log("console log");
+    });
+
+    let consoleError = document.getElementById("consoleErrorButton");
+    consoleError.addEventListener('click', () => {
+      console.error("console error");
+    });
+
+    let consoleCount = document.getElementById("consoleCountButton");
+    consoleCount.addEventListener('click',() => {
+      console.count('this is a console count');
+    });
+
+    let consoleWarn = document.getElementById("consoleWarnButton");
+    consoleWarn.addEventListener('click',() => {
+      console.warn("this is a console warn");
+    });
+
+    let consoleAssertButton = document.getElementById("consoleAssertButton");
+    consoleAssertButton.addEventListener('click',() => {
+      console.assert(2==0, "failure to rec");
+    });
+
+    let consoleClearButton = document.getElementById("consoleClearButton");
+    consoleClearButton.addEventListener('click',() => {
+      console.clear("this is a console clear");
+    });
+
+    let consoleDirButton = document.getElementById("consoleDirButton");
+    consoleDirButton.addEventListener('click',() => {
+      console.dir("this is a console dir");
+    });
+
+    let consoleDirxmlButton = document.getElementById("consoleDirxmlButton");
+    consoleDirxmlButton.addEventListener('click',() => {
+      console.dirxml("this is a console dirxml");
+    });
+
+    let consoleGroupStartButton = document.getElementById("consoleGroupStartButton");
+    consoleGroupStartButton.addEventListener('click',() => {
+      console.group("this is a console group start");
+      console.log("pickle1");
+      console.log("pickle2");
+      console.log("pickle3");
+    });
+
+    errorBtns[9].addEventListener('click', () => {
+      console.groupEnd();
+    })
+
+    let consoleTableButton = document.getElementById("consoleTableButton");
+    consoleTableButton.addEventListener('click',() => {
+      var list = [
+        {
+          text: 'pickle',
+        },
+        {
+          text: 'juice',
+        },
+        {
+          text: 'likes',
+        }
+      ];
+      console.table(list);
+    });
+
+    errorBtns[11].addEventListener('click', () => {
+      console.time("time");
+      console.log("Timer Started")
+    })
+
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd("time");
+    })
+
+    let consoleTraceButton = document.getElementById("consoleTraceButton");
+    consoleTraceButton.addEventListener('click',() => {
+      console.trace("this is a trace");
+    });
+
+    errorBtns[14].addEventListener('click', () => {
+      roger();
+    })
+
+    window.onerror = function() {
+      console.log("Bad function call");
+                        
+    };
+  
+
   </script>
 </body>
 
